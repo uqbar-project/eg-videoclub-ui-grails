@@ -12,7 +12,7 @@ class PedidoController {
 	}
 	
 	def getPeliculas(params) {
-		println "Peliculas a buscar"
+		//throw new RuntimeException("No quiero")
 		def result = peliculaService.getPeliculas(params.term).collect {
 			pelicula -> ["label" : pelicula.titulo, "value": pelicula.titulo, "id": pelicula.id ]
 		} as JSON
@@ -20,11 +20,13 @@ class PedidoController {
 	}
 	
 	def getPelicula(params) {
+		//throw new RuntimeException("Ufa")
 		def pelicula = peliculaService.getPelicula(params.id as Long)
 		render (template: "pelicula", model: [pelicula: pelicula])
 	}
 	
 	def agregarPelicula(params) {
+		//throw new RuntimeException("Y si tira error?")
 		def pelicula = peliculaService.getPelicula(params.idPelicula as Long)
 		def pedido = getPedidoActual(params)
 		pedidoService.agregarPelicula(pedido, pelicula)

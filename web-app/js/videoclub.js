@@ -1,5 +1,7 @@
-//http://jay-chandran.blogspot.com.ar/2011/09/using-grails-with-jquery-autocomplete.html
-
+/** 
+ * Definición del autocomplete que busca películas
+ * http://jay-chandran.blogspot.com.ar/2011/09/using-grails-with-jquery-autocomplete.html
+ **/
 $(document).ready(function() {
 	$("#peliculaAutoComplete").autocomplete({
 		source : buscarPeliculas, // función que responde cuando queremos buscar...
@@ -8,6 +10,7 @@ $(document).ready(function() {
 	});
 });
 
+/** Llamada asincrónica a buscar películas **/
 function buscarPeliculas(request, response) {
 	$.ajax({
 		url : getUrl("getPeliculas"),
@@ -15,13 +18,7 @@ function buscarPeliculas(request, response) {
 		success : function(data) {
 			response(data);
 		},
-		error : function() {
-			// TODO: Mostrar un mensaje de error
-			console.log("error");
-			// $.jGrowl("Unable to retrieve Companies", {
-			// theme: 'ui-state-error ui-corner-all'
-			// });
-		}
+		error : mostrarError
 	});
 }
 
@@ -40,10 +37,7 @@ function peliculaSeleccionada(event, ui) {
 			$("#peliculaSeleccionada").html(data);
 			$("#botonAgregar").removeClass("disabled");
 		},
-		error : function() {
-			// TODO: Mostrar un mensaje de error
-			alert("error");
-		}
+		error : mostrarError
 	});
 }
 
@@ -57,7 +51,6 @@ function eliminarPelicula(idPelicula) {
 }
 
 function cambiarPeliculas(accion, idPelicula) {
-	// Ver si hay algo más directo
 	var idPedido = "";
 	if ($("#idPedido") != null) {
 		idPedido = $("#idPedido").val();
@@ -75,10 +68,7 @@ function cambiarPeliculas(accion, idPelicula) {
 			$("#botonAgregar").addClass("disabled");
 			$("#peliculaAutoComplete").val("");
 		},
-		error : function() { 
-			// TODO: Mostrar errores
-			console.log("error");
-		}
+		error : mostrarError
 	});
 }
 
@@ -93,4 +83,9 @@ function imgError(image) {
 	image.onerror = "";
 	image.src = app.linkImagenes + "/pelis/notFound.jpg";
 	return true;
+}
+
+/** Permite mostrar un error ante una llamada ajax **/
+function mostrarError(request, status, error) {
+	$("#mensajes").addClass("badge badge-error").html(request.responseText);
 }

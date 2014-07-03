@@ -22,6 +22,8 @@
 				</div>
 			</div>
 			<g:hiddenField name="idPelicula"></g:hiddenField>
+			<div id="mensajes">
+			</div>
 			<div class="row-fluid">
 				<div class="span8" id="peliculaSeleccionada">
 				</div>
