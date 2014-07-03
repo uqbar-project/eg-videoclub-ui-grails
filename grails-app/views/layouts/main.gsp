@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<g:javascript>
+var app = {
+	linkImagenes : "${g.resource(dir: 'images')}",
+	linkPedido : "${createLink(controller: 'pedido', action:' ')}"
+}
+</g:javascript>
 <html>
 <head>
 	<title>Alquiler de pel&iacute;culas</title>
@@ -9,8 +15,7 @@
 </head>
 <body>
 	<div id="spinner" class="spinner" style="display: none;">
-		<img src="${resource(dir:'images',file:'spinner.gif')}"
-			alt="${message(code:'spinner.alt',default:'Loading...')}" />
+		<img src="${resource(dir:'images',file:'spinner.gif')}" alt="Loading..." />
 	</div>
 	<r:layoutResources/>
 	<g:layoutBody />

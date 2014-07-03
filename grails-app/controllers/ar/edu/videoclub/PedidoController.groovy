@@ -12,6 +12,7 @@ class PedidoController {
 	}
 	
 	def getPeliculas(params) {
+		println "Peliculas a buscar"
 		def result = peliculaService.getPeliculas(params.term).collect {
 			pelicula -> ["label" : pelicula.titulo, "value": pelicula.titulo, "id": pelicula.id ]
 		} as JSON

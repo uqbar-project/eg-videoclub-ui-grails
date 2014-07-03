@@ -10,8 +10,9 @@ class Pelicula {
 	
     static constraints = {
 		titulo maxSize: 255
-		actores maxSize: 255
+		actores maxSize: 255, nullable: true
 		tapa nullable:true, maxSize: 16384 /* 16K */
+		sinopsis nullable: true
     }
 	
 	static mapping = {

@@ -4,7 +4,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="layout" content="main" />
 <title>Blogbuster - Alquiler de pel&iacute;culas</title>
-<r:require modules="jquery, bootstrap, jquery-ui" />
 <g:javascript src="videoclub.js" />
 </head>
 <body>

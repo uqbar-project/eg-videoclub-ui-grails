@@ -33,7 +33,11 @@ grails.mime.types = [
 //grails.urlmapping.cache.maxsize = 1000
 
 // What URL patterns should be processed by the resources plugin
-grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
+// grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
+// Lo cambié para que podamos acceder a las películas sin el /static/images
+// esto implica que sea más lenta la app porque no trabaja con imágenes estáticas pero
+// funciona ver las imágenes dinámicas de cada película
+grails.resources.adhoc.patterns = ['/css/*', '/js/*', '/plugins/*']
 
 // The default codec used to encode data with ${}
 grails.views.default.codec = "none" // none, html, base64

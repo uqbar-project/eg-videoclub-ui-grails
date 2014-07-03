@@ -1,77 +1,96 @@
 //http://jay-chandran.blogspot.com.ar/2011/09/using-grails-with-jquery-autocomplete.html
-	
-$(document).ready(function() {
- $("#peliculaAutoComplete").autocomplete({
-  source: function(request, response){
-   $.ajax({
-    url: "pedido/getPeliculas", 
-    data: request,
-    success: function(data) {
-    	response(data);
-    },
-    error: function() { 
-    	console.log("error");
-//     $.jGrowl("Unable to retrieve Companies", {
-//      theme: 'ui-state-error ui-corner-all'   
-//     });
-    }
-   });
-  },
-  minLength: 2, // triggered only after minimum 2 characters have been entered.
-  select: function(event, ui) { // event handler when user selects a film from the list.
-   $("#idPelicula").val(ui.item.id); // actualizamos la pelicula
 
-   $.ajax({
-	    url: "pedido/getPelicula", 
-	    data: { id: ui.item.id },
-	    update: "peliculaSeleccionada",
-	    success: function(data) {
-	    	document.getElementById("peliculaSeleccionada").innerHTML = data; // set the response
-	    	$("#botonAgregar").removeClass("disabled");
-	    },
-	    error: function() { 
-	    	alert("error");
-	    }
-	   });
-   
-  }
- });
+$(document).ready(function() {
+	$("#peliculaAutoComplete").autocomplete({
+		source : buscarPeliculas, // función que responde cuando queremos buscar...
+		minLength : 2, // ... y se dispara cuando escribamos al menos 2 caracteres
+		select : peliculaSeleccionada // función que responde cuando elegimos una película
+	});
 });
 
+function buscarPeliculas(request, response) {
+	$.ajax({
+		url : getUrl("getPeliculas"),
+		data : request,
+		success : function(data) {
+			response(data);
+		},
+		error : function() {
+			// TODO: Mostrar un mensaje de error
+			console.log("error");
+			// $.jGrowl("Unable to retrieve Companies", {
+			// theme: 'ui-state-error ui-corner-all'
+			// });
+		}
+	});
+}
 
+// event handler que ocurre cuando un usuario selecciona una película
+// de la lista que presenta el autocomplete
+// Se llama asincrónicamente a buscar los datos de la película
+// (tenemos el título y el id)
+function peliculaSeleccionada(event, ui) {
+	$("#idPelicula").val(ui.item.id); // actualizamos el id de la película en un hidden
+
+	$.ajax({
+		url : getUrl("getPelicula"),
+		data : { id : ui.item.id },       // pasamos el id de la película seleccionada al controller
+		update : "peliculaSeleccionada",  // container que vamos a actualizar, es el id de un div
+		success : function(data) {
+			$("#peliculaSeleccionada").html(data);
+			$("#botonAgregar").removeClass("disabled");
+		},
+		error : function() {
+			// TODO: Mostrar un mensaje de error
+			alert("error");
+		}
+	});
+}
+
+/** Funciones que manejan alta y baja de una película **/
 function agregarPelicula() {
-	cambiarPeliculas("pedido/agregarPelicula", document.getElementById("idPelicula").value);	
+	cambiarPeliculas(getUrl("agregarPelicula"), $("#idPelicula").val());
 }
 
 function eliminarPelicula(idPelicula) {
-	cambiarPeliculas("pedido/eliminarPelicula", idPelicula);	
+	cambiarPeliculas(getUrl("eliminarPelicula"), idPelicula);
 }
 
 function cambiarPeliculas(accion, idPelicula) {
-	var idPedido = "" 
-	if (document.getElementById("idPedido") != null) {
-		idPedido = document.getElementById("idPedido").value
+	// Ver si hay algo más directo
+	var idPedido = "";
+	if ($("#idPedido") != null) {
+		idPedido = $("#idPedido").val();
 	}
 	$.ajax({
-	    url: accion, 
-	    data: { idPedido: idPedido,
-	    	    idPelicula: idPelicula },
-	    success: function(data) {
-	    	document.getElementById("peliculaSeleccionada").innerHTML = "";
-	    	document.getElementById("peliculasAlquiladas").innerHTML = data; 
-	    	document.getElementById("idPelicula").value = "";
-	    	$("#botonAgregar").addClass("disabled");
-	    	document.getElementById("peliculaAutoComplete").value = "";
-	    },
-	    error: function() { // handle server errors
-	    	console.log("error");
-	    }
-	   });
-	
+		url : accion,
+		data : {
+			idPedido : idPedido,
+			idPelicula : idPelicula
+		},
+		success : function(data) {
+			$("#peliculaSeleccionada").html("");
+			$("#peliculasAlquiladas").html(data);
+			$("#idPelicula").val("");
+			$("#botonAgregar").addClass("disabled");
+			$("#peliculaAutoComplete").val("");
+		},
+		error : function() { 
+			// TODO: Mostrar errores
+			console.log("error");
+		}
+	});
 }
 
+/** Funciones comunes **/
+/** Permite obtener la URL relativa al proyecto. La variable app.linkPedido se carga en el layout main.gsp **/
+function getUrl(action) {
+	return app.linkPedido + "/" + action;
+}
+
+/** Devuelve una imagen default para una película, cuando no existe la imagen concreta **/
 function imgError(image) {
-    image.onerror = "";
-    image.src = "images/pelis/notFound.jpg";
-    return true;
+	image.onerror = "";
+	image.src = app.linkImagenes + "/pelis/notFound.jpg";
+	return true;
 }
