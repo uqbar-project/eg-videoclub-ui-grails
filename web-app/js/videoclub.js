@@ -67,6 +67,7 @@ function cambiarPeliculas(accion, idPelicula) {
 			$("#idPelicula").val("");
 			$("#botonAgregar").addClass("disabled");
 			$("#peliculaAutoComplete").val("");
+			$("#mensajes").html("");
 		},
 		error : mostrarError
 	});
@@ -87,5 +88,5 @@ function imgError(image) {
 
 /** Permite mostrar un error ante una llamada ajax **/
 function mostrarError(request, status, error) {
-	$("#mensajes").addClass("badge badge-error").html(request.responseText);
+	$("#mensajes").addClass("badge badge-important").html(request.responseText);
 }

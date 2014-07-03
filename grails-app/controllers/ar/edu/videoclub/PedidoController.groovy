@@ -34,6 +34,7 @@ class PedidoController {
 	}
 	
 	def eliminarPelicula(params) {
+		//throw new RuntimeException("Y si tira error?")
 		def pelicula = peliculaService.getPelicula(params.idPelicula as Long)
 		def pedido = getPedidoActual(params)
 		pedidoService.eliminarPelicula(pedido, pelicula)
