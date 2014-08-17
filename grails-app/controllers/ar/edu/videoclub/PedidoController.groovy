@@ -25,7 +25,7 @@ class PedidoController {
 	def getPelicula(params) {
 		//throw new RuntimeException("Ufa")
 		def pelicula = peliculaService.getPelicula(params.id as Long)
-		render (template: "pelicula", model: [pelicula: pelicula])
+		render (template: "pelicula", model: [pelicula: pelicula, permiteAgregarPelicula: true])
 	}
 	
 	def agregarPelicula(params) {

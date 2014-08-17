@@ -8,13 +8,15 @@
 			</thead>
 			<tbody>
 				<g:each in="${peliculas}" status="i" var="pelicula">
-					<div class="span8">
-						<g:render template="pelicula" model="['pelicula': pelicula, 'i': i]"></g:render>
-					</div>
-					<div class="span2">
-						<a class="btn btn-info" href="javascript:eliminarPelicula(${pelicula.id});"> 
-							<i class="icon-minus icon-white"></i>
-						</a>
+					<div class="row">
+						<div class="col-md-10">
+							<g:render template="pelicula" model="['pelicula': pelicula, 'i': i, 'permiteAgregarPelicula': false]"></g:render>
+						</div>
+						<div class="col-md-2">
+							<a class="btn btn-info" href="javascript:eliminarPelicula(${pelicula.id});" title="Eliminar pel&iacute;cula"> 
+								<span class="glyphicon glyphicon-remove"></span>
+							</a>
+						</div>
 					</div>
 				</g:each>
 			</tbody>

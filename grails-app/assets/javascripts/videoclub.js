@@ -4,11 +4,20 @@
  **/
 $(document).ready(function() {
 	$("#peliculaAutoComplete").autocomplete({
+		messages: {
+	        noResults: '',
+	        results: function() {}
+	    },
 		source : buscarPeliculas, // función que responde cuando queremos buscar...
 		minLength : 2, // ... y se dispara cuando escribamos al menos 2 caracteres
 		select : peliculaSeleccionada // función que responde cuando elegimos una película
 	});
 });
+
+/** Llamada asincrónica alternativa a buscar películas **/
+function buscarPeliculasAlternativa(request, response) {
+	$.getJSON(getUrl("getPeliculas"), request, response);
+}
 
 /** Llamada asincrónica a buscar películas **/
 function buscarPeliculas(request, response) {
