@@ -43,7 +43,7 @@ grails.project.dependency.resolution = {
 
 	dependencies {
 		// specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
-
+			build 'org.eclipse.xtend:org.eclipse.xtend.lib:2.6.1' 
 		// runtime 'mysql:mysql-connector-java:5.1.22'
 	}
 
