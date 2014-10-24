@@ -4,6 +4,8 @@ import ar.edu.videoclub.domain.Pelicula
 
 class HomePeliculas extends BaseHome {
 
+	static int MAX_RESULTS = 5
+	
 	List<Pelicula> peliculas
 	static HomePeliculas instance
 	
@@ -19,9 +21,13 @@ class HomePeliculas extends BaseHome {
 	} 
 	
 	def getPeliculas(titulo) {
-		peliculas.findAll { pelicula -> pelicula.titulo.toUpperCase().contains(titulo.toUpperCase()) }.take(5)
+		getPeliculas(titulo, MAX_RESULTS)
 	}
-	
+
+	def getPeliculas(titulo, max) {
+		peliculas.findAll { pelicula -> pelicula.titulo.toUpperCase().contains(titulo.toUpperCase()) }.take(max)
+	}
+
 	def getPelicula(Long id) {
 		peliculas.find { pelicula -> pelicula.id == id }
 	}
