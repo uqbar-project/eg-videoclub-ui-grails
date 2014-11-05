@@ -25,7 +25,7 @@ class HomePeliculas extends BaseHome {
 	}
 
 	def getPeliculas(titulo, max) {
-		peliculas.findAll { pelicula -> pelicula.titulo.toUpperCase().contains(titulo.toUpperCase()) }.take(max)
+		peliculas.findAll { pelicula -> pelicula.titulo.toUpperCase().contains((titulo ?: '').toUpperCase()) }.take(max)
 	}
 
 	def getPelicula(Long id) {
