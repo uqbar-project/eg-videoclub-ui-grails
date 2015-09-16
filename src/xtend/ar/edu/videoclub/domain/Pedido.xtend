@@ -2,11 +2,13 @@ package ar.edu.videoclub.domain
 
 import java.util.ArrayList
 import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class Pedido {
 
-	@Property Long id
-	@Property List<Pelicula> peliculas
+	Long id
+	List<Pelicula> peliculas
 	
 	new() {
 		peliculas = new ArrayList<Pelicula>
