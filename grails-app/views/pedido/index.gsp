@@ -4,31 +4,31 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="layout" content="main" />
 <title>Blogbuster - Alquiler de pel&iacute;culas</title>
-<g:javascript src="videoclub.js" />
 </head>
 <body>
 	<div class="body" style="width: 90%; padding: 15pt;">
-		<h2>Alquiler de pel&iacute;culas</h2>
+		<h1>Alquiler de pel&iacute;culas</h1>
 		<form method="post">
 			<div class="row-fluid">
-				<div class="span4">
+	  			<div class="col-md-4">
 					<g:textField name="peliculaAutoComplete"
-						class="input-medium span12" placeholder="Escriba el título" />
+						class="form-control" placeholder="Escriba el título" />
 				</div>
-				<div class="span2">
-					<a class="btn btn-info disabled" href="javascript:agregarPelicula();" id="botonAgregar"> <i
-						class="icon-plus icon-white"></i>
-					</a>
+				<div class="col-md-8">
+					<div id="peliculaSeleccionada">
 				</div>
 			</div>
-			<g:hiddenField name="idPelicula"></g:hiddenField>
-			<div id="mensajes">
 			</div>
 			<div class="row-fluid">
-				<div class="span8" id="peliculaSeleccionada">
+				<div class="col-md-12">
+					<g:hiddenField name="idPelicula"></g:hiddenField>
+					<div id="mensajes">
+					</div>
 				</div>
 			</div>
-			<div class="row-fluid" id="peliculasAlquiladas">
+			<div class="row-fluid">
+				<div class="col-md-12" id="peliculasAlquiladas">
+				</div>
 			</div>
 		</form>
 	</div>
