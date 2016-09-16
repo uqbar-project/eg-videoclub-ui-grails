@@ -1,5 +1,7 @@
 # Videoclub en Grails
 
+![demo](video/demo-videoclub.gif)
+
 ## Explicación
 
 Pantalla para alquilar películas que se divide en varias partes, de manera que el cliente pueda disparar pedidos asincrónicos (vía AJAX | jQuery-UI). 
